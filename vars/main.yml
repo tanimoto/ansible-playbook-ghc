@@ -1,0 +1,8 @@
+
+ghc_version: 7.6.3
+ghc_name: ghc-7.6.3-x86_64-unknown-linux
+ghc_file: $ghc_name.tar.bz2
+ghc_url: http://www.haskell.org/ghc/dist/$ghc_version/$ghc_file
+
+ghc_tmp_dir: /tmp/ghc
+ghc_cfg_dir: /tmp/ghc/ghc-$ghc_version

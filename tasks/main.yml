@@ -1,0 +1,40 @@
+---
+- name: Install dependencies
+  apt: pkg=$item state=installed
+  with_items:
+    - build-essential
+    - checkinstall
+    - libgmp-dev
+    - zlib1g-dev
+
+- name: Create temporary directory
+  file: >
+    path=$ghc_tmp_dir
+    state=directory
+
+- name: Download ghc
+  get_url: >
+    url=$ghc_url
+    dest=$ghc_tmp_dir
+
+- name: Extract ghc
+  command: tar xf $ghc_file
+    chdir=$ghc_tmp_dir
+    creates=$ghc_cfg_dir
+
+- name: Fix libgmp issue
+  command: ln -sf /usr/lib/x86_64-linux-gnu/libgmp.so.10.0.5 /usr/lib/libgmp.so.3
+
+- name: Configure ghc
+  command: ./configure
+    chdir=$ghc_cfg_dir
+
+- name: Install ghc
+  command: checkinstall -y
+    chdir=$ghc_cfg_dir
+    creates=$ghc_cfg_dir/ghc_7.6.3-1_amd64.deb
+
+- name: Recache ghc
+  command: ghc-pkg recache
+
+
