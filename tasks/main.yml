@@ -32,9 +32,7 @@
 - name: Install ghc
   command: checkinstall -y
     chdir=$ghc_cfg_dir
-    creates=$ghc_cfg_dir/ghc_7.6.3-1_amd64.deb
+    creates=$ghc_cfg_dir/ghc_${ghc_version}-1_amd64.deb
 
 - name: Recache ghc
   command: ghc-pkg recache
-
-
